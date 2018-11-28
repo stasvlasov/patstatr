@@ -1,0 +1,26 @@
+#+title: patstatr
+#+author: Stas Vlasov
+#+email: s.vlasov@uvt.nl
+
+~patstatr~ is a simple R package that allow to quicky set up [[https://www.epo.org/searching-for-patents/business/patstat.html][raw PATSTAT Biblio dataset]] (tested on 2017 autumn edition) and provides couple of convinience tools to use it as if all data is in your RAM (using ~patstatr.filter~).
+
+* Installation
+
+#+BEGIN_SRC R
+  ## Loads devtools and installs it if not yet installed
+  if (!require("devtools", character.only = TRUE)) {
+      install.packages("devtools", repos = 'http://cloud.r-project.org')
+      library("devtools", character.only = TRUE)
+  }
+  ## Installs and loads patviewer
+  install_github("stasvlasov/patstatr")
+  library("patstatr")
+#+END_SRC
+
+* Usage
+
+Available functions:
+
+| ~patstatr.save.rds~           | Reads PatentsView .tsv files and saves them to .rds (also optional in batches) |
+| ~patstatr.filter~             | Filter tables of PatentsView.org bulk data (same usage as dplyr)               |
+

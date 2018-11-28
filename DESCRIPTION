@@ -1,0 +1,12 @@
+Package: patstatr
+Title: Tools for working with raw PATSTAT database
+Version: 0.0.0.9000
+Authors@R: 'Stas Vlasov <s.vlasov@uvt.nl> [aut, cre]'
+Description: Set of functions that help to prepare, to load into R session and to search PATSTAT data
+Depends: R (>= 3.5.1)
+License: MIT License
+Encoding: UTF-8
+LazyData: true
+Date: 2018-11-27
+References: patstat-biblio-2017-autumn-txt
+RoxygenNote: 6.0.1
