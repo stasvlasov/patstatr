@@ -15,8 +15,6 @@
 ##            , 'data.table'
 ##            , 'dplyr'
 ##            , 'magrittr'
-##            ## , 'htmltab'
-##            ## , 'XML'
 ##            ))
 ##     if(!require(pkg, character.only = TRUE)) {
 ##         install.packages(pkg, repos = 'http://cloud.r-project.org')
@@ -141,7 +139,7 @@ patstatr.save.rds <- function(file
         }) %>% return
     }
 }
-
+## --------------------------------------------------------------------------------
 
 
 
@@ -158,3 +156,61 @@ patstatr.save.rds <- function(file
 ## "tls906_part01.txt" %>% patstatr.save.rds(
 ##                             batch.lines = 5*10^6
 ##                           , file.lines = 12500001)
+
+
+
+
+
+
+## --------------------------------------------------------------------------------
+#' Filter tables of PatStat raw data
+#'
+#' @description
+#' Similar to dplyr::filter but for tables of PatStat raw data data saved in multiple .rds files
+#' @param file.dir A path to directory with .rds files. Default is in working directory "patstat-rds".
+#' @param file.pattern A pattern for getting a file or a set of files (data batches)
+#' @param progress.bar Whether to show progress bar (with pbapply package). Default is TRUE
+#' @param cols Which column to select. Default is all columns.
+#' @param ... A filtering conditions to fetch certain rows. (See dplyr::filter)
+#' @return A data.table with a subset the data.
+#' @import pbapply magrittr data.table dplyr
+#' @export
+patstatr.filter <- function(file.pattern, ...
+                         , file.dir = file.path(getwd(), "patstat-rds")
+                         , progress.bar = TRUE
+                         , cols = character(0)) {
+    if(progress.bar) {
+        file.dir %>%
+            file.path(list.files(., pattern = file.pattern)) %>% 
+            pblapply(function(file.path) 
+                file.path %>%
+                readRDS %>% 
+                filter(...) %>%
+                select(if(cols %>% is.0) everything() else cols)) %>% 
+            rbindlist %>% 
+            return
+    } else {
+        file.dir %>%
+            file.path(list.files(., pattern = file.pattern)) %>%
+            lapply(function(file.path) 
+                file.path %>%
+                readRDS %>% 
+                filter(...) %>%
+                select(if(cols %>% is.0) everything() else cols)) %>% 
+            rbindlist %>% 
+            return
+    }
+}
+## --------------------------------------------------------------------------------
+
+
+
+## Tests
+## --------------------------------------------------------------------------------
+## patstatr.filter.test <-
+##     patstatr.filter("^tls906_.*"
+##                   , han_name == "THERMO FISHER SCIENTIFIC")
+
+
+
+
