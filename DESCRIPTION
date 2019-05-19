@@ -3,10 +3,10 @@ Title: Tools for working with raw PATSTAT database
 Version: 0.0.0.9000
 Authors@R: 'Stas Vlasov <s.vlasov@uvt.nl> [aut, cre]'
 Description: Set of functions that help to prepare, to load into R session and to search PATSTAT data
-Depends: R (>= 3.5.1)
+Depends: R (>= 3.4.1)
 License: MIT License
 Encoding: UTF-8
 LazyData: true
-Date: 2018-11-27
+Date: 2018-12-21
 References: patstat-biblio-2017-autumn-txt
 RoxygenNote: 6.0.1
